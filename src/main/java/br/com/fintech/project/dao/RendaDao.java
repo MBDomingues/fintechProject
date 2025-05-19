@@ -1,7 +1,7 @@
-package br.com.fintech.fintechproject.dao;
+package br.com.fintech.project.dao;
 
-import br.com.fintech.fintechproject.exeption.DBExeption;
-import br.com.fintech.fintechproject.model.Renda;
+import br.com.fintech.project.exeption.DBExeption;
+import br.com.fintech.project.model.Renda;
 
 import java.util.List;
 

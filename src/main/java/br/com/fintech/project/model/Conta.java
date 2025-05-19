@@ -1,4 +1,4 @@
-package br.com.fintech.fintechproject.model;
+package br.com.fintech.project.model;
 
 //CLASSE DA TABELA CONTA
 public class Conta {

@@ -1,4 +1,4 @@
-package br.com.fintech.fintechproject.exeption;
+package br.com.fintech.project.exeption;
 
 public class DBExeption extends Exception {
 

@@ -7,28 +7,41 @@
   <link rel="stylesheet" href="./resource/css/bootstrap.css">
 </head>
 <body>
+
+<c:if test="${not empty mensagem}">
+  <div class="alert alert-success">
+    ${mensagem}
+  </div>
+</c:if>
+
+<c:if test="${not empty erro}">
+  <div class="alert alert-danger">
+    ${erro}
+  </div>
+</c:if>
+
 <div class="d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
   <div class="card">
     <div class="card-body">
-      <form>
+      <form action="usuario" method="post">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
           <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+          <input type="password" name="senha" class="form-control" id="exampleInputPassword1">
         </div>
         <div class="mb-3">
           <label for="username" class="form-label">Name</label>
-          <input type="text" class="form-control" id="username">
+          <input type="text" name="nome" class="form-control" id="username">
         </div>
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
           <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
-        <a href="homePage.jsp" class="btn btn-primary">Entrar</a>
+        <input type="submit" value="salvar" class="btn btn-primary">
       </form>
     </div>
   </div>

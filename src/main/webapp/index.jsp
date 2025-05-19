@@ -10,7 +10,7 @@
 <div class="d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
     <div class="card">
         <div class="card-body">
-            <form>
+            <form action="usuario" method="post" >
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
