@@ -10,5 +10,5 @@ public interface UsuarioDao {
     List<Usuario> listarUsuarios() throws DBExeption;
     void alterarUsuario(Usuario usuario)  throws DBExeption;
     void excluirUsuario(String nome)  throws DBExeption;
-    Usuario buscarUsuarioPorNome(String nome)   throws DBExeption;
+    Usuario buscarUsuarioPoremail(String email)   throws DBExeption;
 }

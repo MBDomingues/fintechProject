@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/usuario")
-public class UsuarioServlet extends HttpServlet {
+@WebServlet("/cadastro")
+public class CadastroServlet extends HttpServlet {
 
     private UsuarioDao dao;
 
@@ -41,13 +41,15 @@ public class UsuarioServlet extends HttpServlet {
         );
         try {
             dao.cadastrarUsuario(usuario);
-            req.setAttribute("mensagem",  "Usuario inserido com sucesso!");
+            resp.sendRedirect("homePage.jsp");
         } catch (DBExeption e) {
             e.printStackTrace();
-            req.setAttribute("erro", "Erro ao inserir usuario!");
+            req.setAttribute("erroCadastro", "Erro ao inserir usuario!");
+            req.getRequestDispatcher("register.jsp").forward(req, resp);
         }
 
-        req.getRequestDispatcher("register.jsp").forward(req, resp);
+
+
 
 
 

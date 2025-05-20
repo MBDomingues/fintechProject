@@ -29,12 +29,6 @@ public class Usuario {
         this.tipo_email = tipo_email;
     }
 
-    public Usuario(int cd_user, String name, String password) {
-        this.cd_user = cd_user;
-        this.name = name;
-        this.password = password;
-    }
-
     //CONSTRUTOR PADRÃO
     public Usuario() {}
 

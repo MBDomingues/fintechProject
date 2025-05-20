@@ -11,21 +11,21 @@ public class UsuarioDaoTeste {
     public static void main(String[] args) {
         UsuarioDao dao = DaoFactory.getUsuarioDao();
 
-//        Cadastrar usuario
-        Usuario usuario = new Usuario (
-                0,
-                "Tacamon",
-                "teste",
-                0,
-                "tacamon@123",
-                "pessoal"
-        );
-        try {
-            dao.cadastrarUsuario(usuario);
-            System.out.println("Usuario inserido com sucesso");
-        } catch (DBExeption e) {
-            System.out.println(e.getMessage());
-        }
+////        Cadastrar usuario
+//        Usuario usuario = new Usuario (
+//                0,
+//                "Tacamon",
+//                "teste",
+//                0,
+//                "tacamon@123",
+//                "pessoal"
+//        );
+//        try {
+//            dao.cadastrarUsuario(usuario);
+//            System.out.println("Usuario inserido com sucesso");
+//        } catch (DBExeption e) {
+//            System.out.println(e.getMessage());
+//        }
 
 //        try {
 //            dao.excluirUsuario("Tacamon");
@@ -43,6 +43,13 @@ public class UsuarioDaoTeste {
 //            }
 //        }catch ( DBExeption e){
 //            System.out.println(e.getMessage());
+        String email = "teste3@com";
+        try {
+            Usuario usuario = dao.buscarUsuarioPoremail(email);
+            System.out.println(usuario.getNom_email() + " " + usuario.getPassword());
+        } catch (DBExeption e) {
+            System.out.println(e.getMessage());
+        }
         }
 
 }

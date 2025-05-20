@@ -79,8 +79,7 @@ public class OracleUsuarioDao implements UsuarioDao {
                int codigo = rs.getInt("cd_usuario");
                String nome = rs.getString("nom_usuario");
                String senha = rs.getString("senha");
-               Usuario usuario = new Usuario(codigo, nome, senha);
-               usuarios.add(usuario);
+
            }
        } catch (SQLException e) {
            e.printStackTrace();
@@ -152,26 +151,39 @@ public class OracleUsuarioDao implements UsuarioDao {
     }
 
     @Override
-    public Usuario buscarUsuarioPorNome(String nome) throws DBExeption {
+    public Usuario buscarUsuarioPoremail(String email) throws DBExeption {
 
         PreparedStatement stmt = null;
+        PreparedStatement stmtEmail = null;
         ResultSet rs = null;
+        ResultSet rsEmail = null;
         Usuario usuario = null;
+        int codigoUser = 0;
+        String senha = null;
+        String nom_email = null;
 
         try {
             conexao = ConnectionManager.getConnectionManager();
-            String sql = "select * from t_usuario where nom_usuario=?";
-
-            conexao.prepareStatement(sql);
-            stmt.setString(1, usuario.getName());
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                int codigo = rs.getInt("cd_usuario");
-                String nomeUsuario = rs.getString("nom_usuario");
-                String senha = rs.getString("senha");
-                usuario = new Usuario(codigo, nomeUsuario, senha);
+            String sqlEmail = "select * from t_email where nom_email = ?";
+            stmtEmail = conexao.prepareStatement(sqlEmail);
+            stmtEmail.setString(1, email);
+            rsEmail = stmtEmail.executeQuery();
+            if (rsEmail.next()) {
+                nom_email = rsEmail.getString("nom_email");
+                codigoUser = rsEmail.getInt("cd_usuario");
             }
+
+
+            String sqlUsuario = "select * from t_usuario where cd_usuario = ?";
+            stmt = conexao.prepareStatement(sqlUsuario);
+            stmt.setInt(1, codigoUser);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                senha = rs.getString("senha");
+            }
+
+            usuario = new Usuario(0, null, senha, 0, nom_email, null);
+
         } catch (SQLException e)  {
             e.printStackTrace();
             throw new DBExeption("Erro ao buscar usuario");
@@ -179,6 +191,7 @@ public class OracleUsuarioDao implements UsuarioDao {
             try {
                 stmt.close();
                 conexao.close();
+                rs.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
