@@ -41,7 +41,7 @@ public class CadastroServlet extends HttpServlet {
         );
         try {
             dao.cadastrarUsuario(usuario);
-            resp.sendRedirect("homePage.jsp");
+            resp.sendRedirect("index.jsp");
         } catch (DBExeption e) {
             e.printStackTrace();
             req.setAttribute("erroCadastro", "Erro ao inserir usuario!");

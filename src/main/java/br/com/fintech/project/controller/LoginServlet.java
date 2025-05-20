@@ -29,14 +29,21 @@ public class LoginServlet extends HttpServlet {
         String senhaWeb = req.getParameter("senha");
 
         try {
-            // Pega o usuário correspondente ao e-mail fornecido
-            Usuario usuario = dao.buscarUsuarioPoremail(emailWeb);
+            Usuario usuario = dao.buscarUsuarioPoremail(emailWeb); // Corrigido para capturar o retorno
+            if (usuario != null) {
+                String email = usuario.getNom_email();
+                String senha = usuario.getPassword();
 
-            // Verifica se o usuário existe e se a senha bate
-            if (usuario == null || !usuario.getPassword().equals(senhaWeb)) {
-                req.setAttribute("erroLogin", "Usuário ou senha incorretos");
+                if (senhaWeb.equals(senha)) {
+                    // Login bem-sucedido
+                    resp.sendRedirect("homePage.jsp");
+                } else {
+                    req.setAttribute("erroLogin", "Usuário ou senha incorretos");
+                    req.getRequestDispatcher("index.jsp").forward(req, resp);
+                }
             } else {
-                resp.sendRedirect("homePage.jsp"); // Login bem-sucedido
+                req.setAttribute("erroLogin", "Usuário não encontrado");
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
             }
 
         } catch (DBExeption e) {
@@ -45,6 +52,7 @@ public class LoginServlet extends HttpServlet {
             req.getRequestDispatcher("index.jsp").forward(req, resp); // Volta para login com erro técnico
         }
     }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
