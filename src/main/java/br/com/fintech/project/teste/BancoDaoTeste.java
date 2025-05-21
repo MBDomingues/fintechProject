@@ -1,6 +1,5 @@
 package br.com.fintech.project.teste;
 
-import br.com.fintech.project.dao.BancoDao;
 import br.com.fintech.project.exeption.DBExeption;
 import br.com.fintech.project.factory.DaoFactory;
 import br.com.fintech.project.model.Banco;

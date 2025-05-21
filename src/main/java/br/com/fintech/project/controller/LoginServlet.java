@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -35,6 +36,10 @@ public class LoginServlet extends HttpServlet {
                 String senha = usuario.getPassword();
 
                 if (senhaWeb.equals(senha)) {
+
+                    HttpSession session = req.getSession();
+                    session.setAttribute("usuarioId", usuario.getCd_user());
+
                     // Login bem-sucedido
                     resp.sendRedirect("homePage.jsp");
                 } else {

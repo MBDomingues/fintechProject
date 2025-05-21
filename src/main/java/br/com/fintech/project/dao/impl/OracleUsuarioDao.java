@@ -182,7 +182,7 @@ public class OracleUsuarioDao implements UsuarioDao {
                 senha = rs.getString("senha");
             }
 
-            usuario = new Usuario(0, null, senha, 0, nom_email, null);
+            usuario = new Usuario(codigoUser, null, senha, 0, nom_email, null);
 
         } catch (SQLException e)  {
             e.printStackTrace();
