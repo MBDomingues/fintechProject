@@ -79,7 +79,8 @@ public class OracleUsuarioDao implements UsuarioDao {
                int codigo = rs.getInt("cd_usuario");
                String nome = rs.getString("nom_usuario");
                String senha = rs.getString("senha");
-
+                Usuario usuario = new Usuario(codigo, nome, senha, 0, null, null);
+               usuarios.add(usuario);
            }
        } catch (SQLException e) {
            e.printStackTrace();

@@ -12,13 +12,12 @@ public class Gastos {
     private int cd_usuario;
 
     //CONSTRUTOR
-    public Gastos(int cd_gastos, double vl_gastos, String categoria, String dt_gasto, String descricao, int nm_conta, int cd_usuario) {
+    public Gastos(int cd_gastos, double vl_gastos, String categoria, String dt_gasto, String descricao, int cd_usuario) {
         this.cd_gastos = cd_gastos;
         this.vl_gastos = vl_gastos;
         this.categoria = categoria;
         this.dt_gasto = dt_gasto;
         this.descricao = descricao;
-        this.nm_conta = nm_conta;
         this.cd_usuario = cd_usuario;
     }
 

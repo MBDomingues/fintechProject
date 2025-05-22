@@ -24,7 +24,12 @@ public class Renda {
     //CONSTRUTOR PADRÃO
     public Renda() {}
 
-    public Renda(int cdRenda, float vlRenda, String frequencia, String tpRenda, int nmConta, int cdUsuario) {
+    public Renda(int cdRenda, double vlRenda, String frequencia, String tpRenda, int cdUsuario) {
+        this.cd_renda = cdRenda;
+        this.vl_renda = vlRenda;
+        this.frequencia = frequencia;
+        this.tp_renda = tpRenda;
+        this.cd_usuario = cdUsuario;
     }
 
     //GETTERS AND SETTERS

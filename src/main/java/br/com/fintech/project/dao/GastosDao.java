@@ -6,8 +6,8 @@ import br.com.fintech.project.model.Gastos;
 import java.util.List;
 
 public interface GastosDao {
-    void inserirGastos(Gastos g) throws DBExeption;
-    void alterarGastos(Gastos g) throws DBExeption;
+    void inserirGastos(Gastos gastos) throws DBExeption;
+    void alterarGastos(Gastos gastos) throws DBExeption;
     void excluirGastos(int id) throws DBExeption;
     Gastos buscarGastoPorId(int id) throws DBExeption;
     List<Gastos> listarGastos()  throws DBExeption;

@@ -4,6 +4,7 @@ import br.com.fintech.project.dao.MetasDao;
 import br.com.fintech.project.dao.UsuarioDao;
 import br.com.fintech.project.dao.impl.OracleMetasDao;
 import br.com.fintech.project.dao.impl.OracleUsuarioDao;
+import br.com.fintech.project.model.Metas;
 
 public class DaoFactory {
 

@@ -62,6 +62,7 @@ public class OracleMetasDao implements MetasDao {
             stmt.setString(2, metas.getDt_alvo());
             stmt.setString(3, metas.getDescricao());
             stmt.setDouble(4, metas.getVl_atual());
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -150,7 +151,6 @@ public class OracleMetasDao implements MetasDao {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                metas = new Metas();
                 metas.setCd_meta(rs.getInt("cd_meta"));
                 metas.setDescricao(rs.getString("descricao"));
                 metas.setVl_alvo(rs.getDouble("vl_alvo"));

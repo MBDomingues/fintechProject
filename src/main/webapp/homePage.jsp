@@ -34,8 +34,7 @@
                 <div class="card-body">
                     <h5 class="card-title fw-semibold">Gastos</h5>
                     <p class="text-muted">Visualize e cadastre todos os seus gastos mensais.</p>
-                    <a href="#" class="btn btn-outline-primary mb-2 w-100">Visualizar Gastos</a>
-                    <a href="#" class="btn btn-primary w-100">Cadastrar Gasto</a>
+                    <a href="#" class="btn btn-outline-primary mb-2 w-100">Meus Gastos</a>
                 </div>
             </div>
 
@@ -44,8 +43,7 @@
                 <div class="card-body">
                     <h5 class="card-title fw-semibold">Renda</h5>
                     <p class="text-muted">Controle suas fontes de renda de forma prática.</p>
-                    <a href="#" class="btn btn-outline-success mb-2 w-100">Visualizar Renda</a>
-                    <a href="#" class="btn btn-success w-100">Cadastrar Renda</a>
+                    <a href="." class="btn btn-outline-success mb-2 w-100">Minhas Rendas</a>
                 </div>
             </div>
 
@@ -54,8 +52,7 @@
                 <div class="card-body">
                     <h5 class="card-title fw-semibold">Metas</h5>
                     <p class="text-muted">Defina e acompanhe suas metas financeiras.</p>
-                    <a href="#" class="btn btn-outline-warning mb-2 w-100">Visualizar Metas</a>
-                    <a href="#" class="btn btn-warning w-100">Cadastrar Meta</a>
+                    <a href="metas.jsp" class="btn btn-outline-warning mb-2 w-100">Minhas Metas</a>
                 </div>
             </div>
         </div>
