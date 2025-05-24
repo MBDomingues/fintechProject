@@ -1,22 +1,17 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gastos - Fintech</title>
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+  <link rel="stylesheet" href="./resource/css/bootstrap.css">
 </head>
 <body class="bg-light">
 
   <!-- Cabeçalho -->
-  <header class="bg-white shadow-sm py-3 mb-4">
-    <div class="container text-center">
-      <h1 class="h4 fw-bold mb-0">FINTECH</h1>
-    </div>
-  </header>
+  <%@include file="header.jsp"%>
+
 
   <div class="container pb-5">
     <h2 class="text-center mb-4">GASTOS</h2>
@@ -25,99 +20,90 @@
     <div class="card shadow mb-4">
       <div class="card-body">
         <h5 class="card-title">Cadastrar Gasto</h5>
-        <form id="form-gasto">
+        <c:if test="${not empty inserido}">
+          <div class="alert alert-success ms-2 me-2 m-auto mt-2">
+              ${inserido}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+          </div>
+        </c:if>
+
+        <c:if test="${not empty erroGasto}">
+          <div class="alert alert-success ms-2 me-2 m-auto mt-2">
+              ${erroGasto}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+          </div>
+        </c:if>
+
+
+        <form action="inserirGasto" method="post">
           <div class="mb-3">
-            <label for="descricao" class="form-label">Descrição</label>
-            <input type="text" class="form-control" id="descricao" required />
+            <label for="descricao" class="form-label">Descritivo</label>
+            <input type="text" name="desc" class="form-control" id="descricao" required />
           </div>
           <div class="mb-3">
             <label for="valor" class="form-label">Valor (R$)</label>
-            <input type="number" class="form-control" id="valor" step="0.01" required />
+            <input type="number" name="valor" class="form-control" id="valor" step="0.01" required />
           </div>
-          <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+          <div class="mb-3">
+            <label for="data" class="form-label">Data do Gasto</label>
+            <input type="date" name="data" class="form-control" id="data" required />
+          </div>
+          <div class="mb-3">
+            <label for="categoria" class="form-label">Categoria</label>
+            <input type="text" name="categoria" class="form-control" id="categoria" required />
+          </div>
+          <input type="submit" value="Cadastrar" class="btn btn-primary w-100">
         </form>
       </div>
     </div>
 
     <!-- Tabela de gastos -->
-    <div class="card shadow">
+    <div class="card shadow mt-4">
       <div class="card-body">
         <h5 class="card-title">Lista de Gastos</h5>
+
         <table class="table table-bordered">
           <thead class="table-light">
-            <tr>
-              <th>Descrição</th>
-              <th>Valor (R$)</th>
-              <th>Ações</th>
-            </tr>
+          <tr>
+            <th>Descritivo</th>
+            <th>Valor (R$)</th>
+            <th>Categoria</th>
+            <th>Data</th>
+            <th>Editar</th>
+          </tr>
           </thead>
-          <tbody id="lista-gastos">
-            <!-- Linhas adicionadas dinamicamente -->
+          <tbody>
+          <c:forEach items="${gastos}" var="gasto">
+            <tr>
+              <td>${gasto.descricao}</td>
+              <td>${gasto.vl.gasto}</td>
+              <td>${gasto.categoria}</td>
+              <td>${gasto.dt_gasto}</td>
+          </c:forEach>
           </tbody>
         </table>
+        <!-- Caso não existam gastos -->
+        <c:if test="${empty listaGastos}">
+          <div class="alert alert-info text-center mt-3">
+            Nenhum gasto cadastrado.
+          </div>
+        </c:if>
       </div>
     </div>
-  </div>
 
-  <script>
-    let lista = [];
-    let editandoIndex = null;
-
-    const form = document.getElementById("form-gasto");
-    const listaGastos = document.getElementById("lista-gastos");
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const descricao = document.getElementById("descricao").value.trim();
-      const valor = parseFloat(document.getElementById("valor").value);
-
-      if (!descricao || isNaN(valor)) return;
-
-      if (editandoIndex !== null) {
-        lista[editandoIndex] = { descricao, valor };
-        editandoIndex = null;
-      } else {
-        lista.push({ descricao, valor });
-      }
-
-      form.reset();
-      renderizarLista();
-    });
-
-    function renderizarLista() {
-      listaGastos.innerHTML = "";
-      lista.forEach((item, index) => {
-        const valorFormatado = item.valor.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        });
-
-        const row = `
-          <tr>
-            <td>${item.descricao}</td>
-            <td>${valorFormatado}</td>
-            <td>
-              <button class='btn btn-sm btn-outline-warning me-2' onclick='editar(${index})'>Editar</button>
-              <button class='btn btn-sm btn-outline-danger' onclick='excluir(${index})'>Excluir</button>
-            </td>
-          </tr>
-        `;
-        listaGastos.insertAdjacentHTML("beforeend", row);
-      });
+      <%
+    Object usuarioId = session.getAttribute("usuarioId");
+    if (usuarioId != null) {
+%>
+    <p>ID do usuário logado: <%= usuarioId %></p>
+      <%
+} else {
+%>
+    <p>Usuário não logado.</p>
+      <%
     }
+%>
 
-    function editar(index) {
-      const gasto = lista[index];
-      document.getElementById("descricao").value = gasto.descricao;
-      document.getElementById("valor").value = gasto.valor;
-      editandoIndex = index;
-    }
-
-    function excluir(index) {
-      lista.splice(index, 1);
-      renderizarLista();
-    }
-  </script>
-
+<script src="resource/js/bootstrap.bundle.js"></script>
 </body>
 </html>

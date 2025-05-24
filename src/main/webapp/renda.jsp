@@ -12,11 +12,7 @@
 <body class="bg-light">
 
   <!-- Cabeçalho -->
-  <header class="bg-white shadow-sm py-3 mb-4">
-    <div class="container text-center">
-      <h1 class="h4 fw-bold mb-0">FINTECH</h1>
-    </div>
-  </header>
+  <%@include file="header.jsp"%>
 
   <div class="container pb-5">
     <h2 class="text-center mb-4">RENDA</h2>
@@ -34,7 +30,7 @@
             <label for="valor" class="form-label">Valor (R$)</label>
             <input type="number" class="form-control" id="valor" step="0.01" required />
           </div>
-          <button type="submit" class="btn btn-success w-100">Cadastrar</button>
+          <button type="submit" value="Registrar" class="btn btn-success w-100"></button>
         </form>
       </div>
     </div>

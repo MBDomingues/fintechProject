@@ -10,5 +10,5 @@ public interface GastosDao {
     void alterarGastos(Gastos gastos) throws DBExeption;
     void excluirGastos(int id) throws DBExeption;
     Gastos buscarGastoPorId(int id) throws DBExeption;
-    List<Gastos> listarGastos()  throws DBExeption;
+    List<Gastos> listarGastos(int codigo)  throws DBExeption;
 }

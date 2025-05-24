@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <h5 class="card-title fw-semibold">Gastos</h5>
                     <p class="text-muted">Visualize e cadastre todos os seus gastos mensais.</p>
-                    <a href="#" class="btn btn-outline-primary mb-2 w-100">Meus Gastos</a>
+                    <a href="./gastos.jsp" class="btn btn-outline-primary mb-2 w-100">Meus Gastos</a>
                 </div>
             </div>
 
@@ -43,7 +43,7 @@
                 <div class="card-body">
                     <h5 class="card-title fw-semibold">Renda</h5>
                     <p class="text-muted">Controle suas fontes de renda de forma prática.</p>
-                    <a href="." class="btn btn-outline-success mb-2 w-100">Minhas Rendas</a>
+                    <a href="./renda.jsp" class="btn btn-outline-success mb-2 w-100">Minhas Rendas</a>
                 </div>
             </div>
 
@@ -58,6 +58,20 @@
         </div>
     </div>
 </div>
+
+<%
+    Object usuarioId = session.getAttribute("usuarioId");
+    if (usuarioId != null) {
+%>
+<p>ID do usuário logado: <%= usuarioId %></p>
+<%
+} else {
+%>
+<p>Usuário não logado.</p>
+<%
+    }
+%>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

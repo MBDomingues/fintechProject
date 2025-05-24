@@ -1,18 +1,20 @@
 package br.com.fintech.project.model;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 //CLASSE DA TABELA GASTOS
 public class Gastos {
 
     private int cd_gastos;
     private double vl_gastos;
     private String categoria;
-    private String dt_gasto;
+    private LocalDate dt_gasto;
     private String descricao;
-    private int nm_conta;
     private int cd_usuario;
 
     //CONSTRUTOR
-    public Gastos(int cd_gastos, double vl_gastos, String categoria, String dt_gasto, String descricao, int cd_usuario) {
+    public Gastos(int cd_gastos, double vl_gastos, String categoria, LocalDate dt_gasto, String descricao, int cd_usuario) {
         this.cd_gastos = cd_gastos;
         this.vl_gastos = vl_gastos;
         this.categoria = categoria;
@@ -50,11 +52,11 @@ public class Gastos {
         this.vl_gastos = vl_gastos;
     }
 
-    public String getDt_gasto() {
+    public LocalDate getDt_gasto() {
         return dt_gasto;
     }
 
-    public void setDt_gasto(String dt_gasto) {
+    public void setDt_gasto(LocalDate dt_gasto) {
         this.dt_gasto = dt_gasto;
     }
 
@@ -64,14 +66,6 @@ public class Gastos {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public int getNm_conta() {
-        return nm_conta;
-    }
-
-    public void setNm_conta(int nm_conta) {
-        this.nm_conta = nm_conta;
     }
 
     public int getCd_usuario() {
