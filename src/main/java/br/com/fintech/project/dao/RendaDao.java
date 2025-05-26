@@ -10,5 +10,5 @@ public interface RendaDao {
     void alterarRenda(Renda renda) throws DBExeption;
     void excluirRenda(int id) throws DBExeption;
     Renda buscarRendaPorId(int id) throws DBExeption;
-    List<Renda> listarRendas() throws DBExeption;
+    List<Renda> listarRendas(int codigo) throws DBExeption;
 }

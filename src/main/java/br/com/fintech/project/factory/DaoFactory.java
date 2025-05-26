@@ -2,11 +2,12 @@ package br.com.fintech.project.factory;
 
 import br.com.fintech.project.dao.GastosDao;
 import br.com.fintech.project.dao.MetasDao;
+import br.com.fintech.project.dao.RendaDao;
 import br.com.fintech.project.dao.UsuarioDao;
 import br.com.fintech.project.dao.impl.OracleMetasDao;
+import br.com.fintech.project.dao.impl.OracleRendaDao;
 import br.com.fintech.project.dao.impl.OracleUsuarioDao;
-import br.com.fintech.project.dao.impl.OraclegastosDao;
-import br.com.fintech.project.model.Metas;
+import br.com.fintech.project.dao.impl.OracleGastosDao;
 
 public class DaoFactory {
 
@@ -19,6 +20,10 @@ public class DaoFactory {
     }
 
     public static GastosDao getGastosDao() {
-        return new OraclegastosDao();
+        return new OracleGastosDao();
+    }
+
+    public static RendaDao getRendaDao() {
+        return new OracleRendaDao();
     }
 }

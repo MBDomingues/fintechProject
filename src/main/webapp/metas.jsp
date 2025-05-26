@@ -1,69 +1,61 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Fintech</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gastos - Fintech</title>
     <link rel="stylesheet" href="./resource/css/bootstrap.css">
 </head>
-<body>
+<body class="bg-light">
+
+<!-- Cabeçalho -->
 <%@include file="header.jsp"%>
 
-<!-- CONTEÚDO PRINCIPAL -->
-<main class="d-flex flex-column align-items-center justify-content-center p-5">
-    <!-- titulo -->
-    <h3>Suas metas</h3>
+<!-- Tabela de gastos -->
+<div class="card shadow mt-4">
+    <div class="card-body">
+        <h5 class="card-title text-center">Lista de Metas</h5>
 
-    <!-- coonteudo principal -->
-    <div class="w-100 d-flex flex-column align-items-center">
-        <!-- cabeçalho -->
-        <div class="mt-4">
-            <div class="d-flex  gap-4 p-3">
-                <p><strong>Nome</strong></p>
-                <p><strong>Valor alvo</strong></p>
-                <p><strong>Valor atual</strong></p>
-            </div>
-        </div>
-
-        <!-- meta de exemplo -->
-        <div class="w-50 border rounded-4 m-1 d-flex flex-column align-items-center">
-            <!-- infos da meta -->
-            <div class="d-flex  gap-4 p-3">
-                <p>NomeMeta 1</p>
-                <p>Valor alvo 1</p>
-                <p>Valor meta atual 1</p>
-            </div>
-
-            <!-- bottoens da meta -->
-            <div class="d-flex gap-3 p-3">
-                <button type="button" class="btn btn-primary">Mudar nome</button>
-                <button type="button" class="btn btn-warning">Mudar valor alvo</button>
-                <button type="button" class="btn btn-danger">Exlcuir meta</button>
-            </div>
-        </div>
-
-        <!-- meta de exemplo -->
-        <div class="w-50 border rounded-4 m-1 d-flex flex-column align-items-center">
-            <!-- infos da meta -->
-            <div class="d-flex  gap-4 p-3">
-                <p>NomeMeta 2</p>
-                <p>Valor alvo 2</p>
-                <p>Valor meta atual 2</p>
-            </div>
-
-            <!-- bottoens da meta -->
-            <div class="d-flex gap-3 p-3">
-                <button type="button" class="btn btn-primary">Mudar nome</button>
-                <button type="button" class="btn btn-warning">Mudar valor alvo</button>
-                <button type="button" class="btn btn-danger">Exlcuir meta</button>
-            </div>
-        </div>
+        <table class="table table-bordered table-striped">
+            <thead class="table-light">
+            <tr>
+                <th>Valor alvo</th>
+                <th>Valor atual</th>
+                <th>Descritivo</th>
+                <th>Data para meta</th>
+                <th>Editar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${metas}" var="meta">
+            <tr>
+                <td>${meta.vl_alvo}</td>
+                <td>${meta.vl_atual}</td>
+                <td>${meta.descricao}</td>
+                <td>
+                    <fmt:parseDate
+                            value="${meta.dt_alvo}"
+                            pattern="yyyy-MM-dd"
+                            var="dataMetaFMT"/>
+                    <fmt:formatDate
+                            value="${dataMetaFMT}"
+                            pattern="dd/MM/yyyy"/>
+                </td>
+                <td class="text-center">
+                    <c:url value="metas" var="link">
+                        <c:param name="acao" value="abrir-form-edicao"/>
+                        <c:param name="codigo" value="${meta.cd_meta}"/>
+                    </c:url>
+                    <a href="${link}" class="btn btn-primary">Editar</a>
+                </td>
+                </c:forEach>
+            </tbody>
+        </table>
     </div>
-
-    <!-- voltar ao menu -->
-    <a href="#" class="btn btn-success mt-5">Voltar para menu principal</a>
-</main>
-
+    <a href="./cadastrarMetas.jsp" class="btn btn-outline-primary mb-2 w-100">Nova Meta</a>
+</div>
 <%@include file="footer.jsp"%>
 <script src="resource/js/bootstrap.bundle.js"></script>
 </body>

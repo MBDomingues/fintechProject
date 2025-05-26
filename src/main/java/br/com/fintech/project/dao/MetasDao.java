@@ -9,6 +9,6 @@ public interface MetasDao {
     void cadastrarMeta (Metas metas)  throws DBExeption;
     void alterarMeta (Metas metas)  throws DBExeption;
     void excluirMeta (Metas metas)  throws DBExeption;
-    List<Metas> listarMetas()  throws DBExeption;
-    Metas buscarMetasPorCodigoUsuario (int codigo)  throws DBExeption;
+    List<Metas> listarMetas(int codigo)  throws DBExeption;
+    Metas buscarMetasPorCodigo(int codigo)  throws DBExeption;
 }

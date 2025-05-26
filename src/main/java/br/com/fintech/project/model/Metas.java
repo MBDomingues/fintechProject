@@ -1,16 +1,18 @@
 package br.com.fintech.project.model;
 
+import java.time.LocalDate;
+
 //CLASSE DA TABELA METAS
 public class Metas {
     private int cd_meta;
     private double vl_alvo;
-    private String dt_alvo;
+    private LocalDate dt_alvo;
     private String descricao;
     private double vl_atual;;
     private int cd_usuario;
 
     //CONSTRUTOR
-    public Metas(int cd_meta, double vl_alvo, String dt_alvo, String descricao, double vl_atual, int cd_usuario) {
+    public Metas(int cd_meta, double vl_alvo, LocalDate dt_alvo, String descricao, double vl_atual, int cd_usuario) {
         this.cd_meta = cd_meta;
         this.vl_alvo = vl_alvo;
         this.dt_alvo = dt_alvo;
@@ -39,11 +41,9 @@ public class Metas {
         this.vl_alvo = vl_alvo;
     }
 
-    public String getDt_alvo() {
-        return dt_alvo;
-    }
+    public LocalDate getDt_alvo() {return dt_alvo;}
 
-    public void setDt_alvo(String dt_alvo) {
+    public void setDt_alvo(LocalDate dt_alvo) {
         this.dt_alvo = dt_alvo;
     }
 

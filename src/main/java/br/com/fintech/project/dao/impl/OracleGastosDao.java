@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OraclegastosDao implements GastosDao {
+public class OracleGastosDao implements GastosDao {
 
     private Connection conexao;
 
@@ -109,7 +109,7 @@ public class OraclegastosDao implements GastosDao {
 
         try {
             conexao = ConnectionManager.getConnectionManager();
-            String sql = "SELECT * FROM T_GASTOS WHERE CD_USUARIO = ?";
+            String sql = "SELECT * FROM T_GASTOS WHERE CD_GASTO = ?";
             stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -117,7 +117,9 @@ public class OraclegastosDao implements GastosDao {
             while (rs.next()) {
                 int codigoGasto = rs.getInt("CD_GASTO");
                 int valor = rs.getInt("VL_GASTO");
-                LocalDate data = LocalDate.parse(rs.getString("DT_GASTO"));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime dateTime = LocalDateTime.parse(rs.getString("DT_GASTO"), formatter);
+                LocalDate data = dateTime.toLocalDate(); // Extrai apenas a data
                 String descricao = rs.getString("DESCRICAO");
                 String categoria = rs.getString("CATEGORIA");
                 int codigoUser = rs.getInt("T_USUARIO_CD_USUARIO");
@@ -146,7 +148,7 @@ public class OraclegastosDao implements GastosDao {
 
         try {
             conexao = ConnectionManager.getConnectionManager();
-            String sql = "SELECT * FROM T_GASTOS where t_usuario_cd_usuario = ?";
+            String sql = "SELECT * FROM T_GASTOS where t_usuario_cd_usuario = ? order by dt_gasto";
             stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, codigo);
             rs = stmt.executeQuery();

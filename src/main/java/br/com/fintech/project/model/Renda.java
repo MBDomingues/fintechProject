@@ -9,26 +9,17 @@ public class Renda {
     private double vl_renda;
     private String frequencia;
     private String tp_renda;
-    private int nm_conta;
     private int cd_usuario;
 
-    //CONSTRUTOR
-    public Renda(int cd_renda, long vl_renda, String frequencia, String tp_renda, int nm_conta) {
-        this.cd_renda = cd_renda;
-        this.vl_renda = vl_renda;
-        this.frequencia = frequencia;
-        this.tp_renda = tp_renda;
-        this.nm_conta = nm_conta;
-    }
 
     //CONSTRUTOR PADRÃO
     public Renda() {}
 
-    public Renda(int cdRenda, double vlRenda, String frequencia, String tpRenda, int cdUsuario) {
+    public Renda(int cdRenda, double vlRenda, String frequencia, String tp_renda, int cdUsuario) {
         this.cd_renda = cdRenda;
         this.vl_renda = vlRenda;
         this.frequencia = frequencia;
-        this.tp_renda = tpRenda;
+        this.tp_renda = tp_renda;
         this.cd_usuario = cdUsuario;
     }
 
@@ -65,13 +56,6 @@ public class Renda {
         this.frequencia = frequencia;
     }
 
-    public int getNm_conta() {
-        return nm_conta;
-    }
-
-    public void setNm_conta(int nm_conta) {
-        this.nm_conta = nm_conta;
-    }
 
     public int getCd_usuario() {
         return cd_usuario;

@@ -12,71 +12,41 @@
 
 <!-- Conteúdo principal -->
 <div class="container bg-white p-4 rounded-4 shadow-lg mt-5">
-    <div class="row g-4">
-        <!-- Resumo Financeiro -->
-        <div class="col-lg-7 col-md-12">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Resumo Financeiro</h5>
-                </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <!-- Gastos -->
+        <div class="col">
+            <div class="card mb-3 shadow-sm h-100">
                 <div class="card-body">
-                    <p><strong>Total de Rendas:</strong> <span class="text-success">R$ 5.000,00</span></p>
-                    <p><strong>Total de Gastos:</strong> <span class="text-danger">R$ 2.300,00</span></p>
-                    <p><strong>Metas Cadastradas:</strong> <span class="text-warning">3 metas</span></p>
+                    <h5 class="card-title fw-semibold">Gastos</h5>
+                    <p class="text-muted">Visualize e cadastre todos os seus gastos mensais.</p>
+                    <a href="gastos?acao=listar" class="btn btn-outline-primary w-100">Meus Gastos</a>
                 </div>
             </div>
         </div>
 
-        <!-- Cards de ações -->
-        <div class="col-lg-5 col-md-12">
-            <!-- Gastos -->
-            <div class="card mb-3 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title fw-semibold">Gastos</h5>
-                    <p class="text-muted">Visualize e cadastre todos os seus gastos mensais.</p>
-                    <a href="./gastos.jsp" class="btn btn-outline-primary mb-2 w-100">Meus Gastos</a>
-                </div>
-            </div>
-
-            <!-- Renda -->
-            <div class="card mb-3 shadow-sm">
+        <!-- Renda -->
+        <div class="col">
+            <div class="card mb-3 shadow-sm h-100">
                 <div class="card-body">
                     <h5 class="card-title fw-semibold">Renda</h5>
                     <p class="text-muted">Controle suas fontes de renda de forma prática.</p>
-                    <a href="./renda.jsp" class="btn btn-outline-success mb-2 w-100">Minhas Rendas</a>
+                    <a href="rendas?acao=listar" class="btn btn-outline-success w-100">Minhas Rendas</a>
                 </div>
             </div>
+        </div>
 
-            <!-- Metas -->
-            <div class="card shadow-sm">
+        <!-- Metas -->
+        <div class="col">
+            <div class="card shadow-sm h-100">
                 <div class="card-body">
                     <h5 class="card-title fw-semibold">Metas</h5>
                     <p class="text-muted">Defina e acompanhe suas metas financeiras.</p>
-                    <a href="metas.jsp" class="btn btn-outline-warning mb-2 w-100">Minhas Metas</a>
+                    <a href="metas?acao=listar" class="btn btn-outline-warning w-100">Minhas Metas</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<%
-    Object usuarioId = session.getAttribute("usuarioId");
-    if (usuarioId != null) {
-%>
-<p>ID do usuário logado: <%= usuarioId %></p>
-<%
-} else {
-%>
-<p>Usuário não logado.</p>
-<%
-    }
-%>
-
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
 
 
 <%@include file="footer.jsp"%>

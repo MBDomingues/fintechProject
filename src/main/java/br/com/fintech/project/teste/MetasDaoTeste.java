@@ -5,19 +5,21 @@ import br.com.fintech.project.exeption.DBExeption;
 import br.com.fintech.project.factory.DaoFactory;
 import br.com.fintech.project.model.Metas;
 
+import java.time.LocalDate;
+
 public class MetasDaoTeste {
     public static void main(String[] args) {
         MetasDao dao = DaoFactory.getMetasDao();
 
-
+        LocalDate data = LocalDate.of(2026, 2, 12);
         try {
             Metas meta = new Metas(
                     0,
                     15200,
-                    "12/12/12",
-                    "carro",
+                    data,
+                    "celular",
                     100,
-                    2);
+                    19);
 
             dao.cadastrarMeta(meta);
             System.out.println("Meta cadastrada com sucesso");

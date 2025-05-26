@@ -1,9 +1,11 @@
 package br.com.fintech.project.controller;
 
-import br.com.fintech.project.dao.GastosDao;
+import br.com.fintech.project.dao.RendaDao;
 import br.com.fintech.project.exeption.DBExeption;
 import br.com.fintech.project.factory.DaoFactory;
 import br.com.fintech.project.model.Gastos;
+import br.com.fintech.project.model.Metas;
+import br.com.fintech.project.model.Renda;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,14 +18,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-@WebServlet("/gastos")
-public class GastosServlet extends HttpServlet {
-
-    private GastosDao dao;
+@WebServlet("/rendas")
+public class RendasServlet extends HttpServlet {
+    private RendaDao dao;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        dao = DaoFactory.getGastosDao();
+        dao = DaoFactory.getRendaDao();
     }
 
     @Override
@@ -40,20 +41,18 @@ public class GastosServlet extends HttpServlet {
                     break;
                 case "abrir-form-edicao":
                     abrirForm(req, resp);
-                    break;
             }
         }else {
             resp.sendRedirect("login.jsp");
         }
-
     }
 
     private void abrirForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             int codigo = Integer.parseInt(req.getParameter("codigo"));
-            Gastos gasto = dao.buscarGastoPorId(codigo);
-            req.setAttribute("gasto", gasto);
-            req.getRequestDispatcher("editarGastos.jsp").forward(req, resp);
+            Renda renda = dao.buscarRendaPorId(codigo);
+            req.setAttribute("renda", renda);
+            req.getRequestDispatcher("editarRenda.jsp").forward(req, resp);
         } catch (DBExeption e) {
             e.printStackTrace();
         }
@@ -61,14 +60,14 @@ public class GastosServlet extends HttpServlet {
 
     private void listar(HttpServletRequest req, HttpServletResponse resp, int usuarioId) throws ServletException, IOException {
         try {
-            List<Gastos> listaGastos = dao.listarGastos(usuarioId);
-            req.setAttribute("gastos", listaGastos);
-            req.getRequestDispatcher("gastos.jsp").forward(req, resp);
+            List<Renda> rendas = dao.listarRendas(usuarioId);
+            req.setAttribute("rendas", rendas);
+            req.getRequestDispatcher("renda.jsp").forward(req, resp);
 
         } catch (DBExeption e) {
             e.printStackTrace();
-            req.setAttribute("erroGasto", "Erro ao listar gastos.");
-            req.getRequestDispatcher("gastos.jsp").forward(req, resp);
+            req.setAttribute("erroRenda", "Erro ao listar rendas.");
+            req.getRequestDispatcher("renda.jsp").forward(req, resp);
         }
     }
 
@@ -88,55 +87,44 @@ public class GastosServlet extends HttpServlet {
                     editar(req, resp, usuarioId);
                     break;
             }
-
-
         } else {
-            resp.sendRedirect("cadastrarGastos.jsp");
+            resp.sendRedirect("index.jsp");
         }
     }
 
-
-    private void cadastrar(HttpServletRequest req, HttpServletResponse resp, int usuarioId) throws IOException, ServletException {
-        String desc = req.getParameter("desc");
-        double valor = Double.parseDouble(req.getParameter("valor"));
-        LocalDate data = LocalDate.parse(req.getParameter("data"));
-        String categoria = req.getParameter("categoria");
-
-        Gastos g = new Gastos(0, valor, categoria, data, desc, usuarioId);
-
-        try {
-            dao.inserirGastos(g);
-            req.setAttribute("inserido", "Gasto inserido com sucesso!");
-        } catch (DBExeption e) {
-            e.printStackTrace();
-            req.setAttribute("erroGasto", "Erro ao inserir Gastos!");
-        }
-
-        // Redireciona (novo request)
-        req.getRequestDispatcher("cadastrarGastos.jsp").forward(req, resp);
-    }
-
-    private void editar(HttpServletRequest req, HttpServletResponse resp, int usuarioId) throws IOException, ServletException {
+    private void editar(HttpServletRequest req, HttpServletResponse resp, int usuarioId) throws ServletException, IOException {
         int codigo = Integer.parseInt(req.getParameter("codigo"));
-        String desc = req.getParameter("desc");
-        double valor = Double.parseDouble(req.getParameter("valor"));
-        LocalDate data = LocalDate.parse(req.getParameter("data"));
-        String categoria = req.getParameter("categoria");
+        int valor = Integer.parseInt(req.getParameter("valor"));
+        String frequencia = req.getParameter("frequencia");
+        String tipo = req.getParameter("tipo");
 
-        Gastos g = new Gastos(codigo, valor, categoria, data, desc, usuarioId);
-
+        Renda renda = new Renda(codigo, valor, frequencia, tipo, usuarioId);
         try {
-            dao.alterarGastos(g);
-            req.setAttribute("msg", "Gasto atualizado com sucesso!");
+            dao.alterarRenda(renda);
+            req.setAttribute("msg", "Renda editada com sucesso!");
         } catch (DBExeption e) {
             e.printStackTrace();
-            req.setAttribute("erro", "Erro ao atualizar Gastos!");
+            req.setAttribute("erro", "Erro ao editar Renda!");
         }
         // Redireciona (novo request)
-        req.getRequestDispatcher("editarGastos.jsp").forward(req, resp);
+        req.getRequestDispatcher("editarRenda.jsp").forward(req, resp);
     }
 
+    private void cadastrar(HttpServletRequest req, HttpServletResponse resp, int usuarioId) throws ServletException, IOException {
+        int valor = Integer.parseInt(req.getParameter("valor"));
+        String frequencia = req.getParameter("frequencia");
+        String tipo = req.getParameter("tipo");
+
+        Renda renda = new Renda(0, valor, frequencia, tipo, usuarioId);
+        try {
+            dao.inserirRenda(renda);
+            req.setAttribute("inserido", "Renda inserida com sucesso!");
+        } catch (DBExeption e) {
+            e.printStackTrace();
+            req.setAttribute("erroRenda", "Erro ao inserir Gastos!");
+        }
+
+        // Redireciona (novo request)
+        req.getRequestDispatcher("cadastrarRenda.jsp").forward(req, resp);
+    }
 }
-
-
-

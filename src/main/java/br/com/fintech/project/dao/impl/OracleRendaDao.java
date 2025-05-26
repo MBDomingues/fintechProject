@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OracleRendaDao implements RendaDao {
@@ -106,6 +107,7 @@ public class OracleRendaDao implements RendaDao {
             conexao = ConnectionManager.getConnectionManager();
             String sql = "select * from t_renda where cd_renda = ?";
             stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -132,24 +134,24 @@ public class OracleRendaDao implements RendaDao {
     }
 
     @Override
-    public List<Renda> listarRendas() throws DBExeption {
+    public List<Renda> listarRendas(int codigo) throws DBExeption {
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Renda> rendas = null;
+        List<Renda> rendas = new ArrayList<>();
 
         try {
             conexao = ConnectionManager.getConnectionManager();
-            String sql = "select * from t_renda";
+            String sql = "SELECT * FROM T_RENDA WHERE CD_USUARIO = ?";
             stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, codigo);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int codigoRenda = rs.getInt("cd_renda");
-                double valorRenda = rs.getDouble("vl_renda");
-                String frequencia = rs.getString("frequencia");
-                String tipoRenda = rs.getString("tp_renda");
-                int codigoUser = rs.getInt("cd_usuario");
-                Renda renda = new Renda(codigoRenda, valorRenda, frequencia, tipoRenda, codigoUser);
+                int codigoRenda = rs.getInt("CD_RENDA");
+                double valorRenda = rs.getDouble("VL_RENDA");
+                String frequencia = rs.getString("FREQUENCIA");
+                String tipoRenda = rs.getString("TP_RENDA");
+                Renda renda = new Renda(codigoRenda, valorRenda, frequencia, tipoRenda, codigo);
                 rendas.add(renda);
             }
         } catch (SQLException e) {
