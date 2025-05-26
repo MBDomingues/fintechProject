@@ -3,8 +3,6 @@ package br.com.fintech.project.controller;
 import br.com.fintech.project.dao.RendaDao;
 import br.com.fintech.project.exeption.DBExeption;
 import br.com.fintech.project.factory.DaoFactory;
-import br.com.fintech.project.model.Gastos;
-import br.com.fintech.project.model.Metas;
 import br.com.fintech.project.model.Renda;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -15,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet("/rendas")
@@ -37,7 +34,7 @@ public class RendasServlet extends HttpServlet {
 
             switch (acao) {
                 case "listar":
-                    listar(req, resp, usuarioId);
+                    listarRenda(req, resp, usuarioId);
                     break;
                 case "abrir-form-edicao":
                     abrirForm(req, resp);
@@ -58,7 +55,7 @@ public class RendasServlet extends HttpServlet {
         }
     }
 
-    private void listar(HttpServletRequest req, HttpServletResponse resp, int usuarioId) throws ServletException, IOException {
+    private void listarRenda(HttpServletRequest req, HttpServletResponse resp, int usuarioId) throws ServletException, IOException {
         try {
             List<Renda> rendas = dao.listarRendas(usuarioId);
             req.setAttribute("rendas", rendas);
@@ -86,7 +83,29 @@ public class RendasServlet extends HttpServlet {
                 case "editar":
                     editar(req, resp, usuarioId);
                     break;
+                case "excluir":
+                    excluir(req, resp);
             }
+        } else {
+            resp.sendRedirect("index.jsp");
+        }
+    }
+
+    private void excluir(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int codigo = Integer.parseInt(req.getParameter("codigoExcluir"));
+        HttpSession session = req.getSession(false);
+        if (session != null && session.getAttribute("usuarioId") != null) {
+            int usuarioId = (int) session.getAttribute("usuarioId");
+
+            try {
+                dao.excluirRenda(codigo);
+                req.setAttribute("msg", "Renda removida!");
+            } catch (DBExeption e) {
+                e.printStackTrace();
+                req.setAttribute("erro", "Erro ao remover renda.");
+            }
+            listarRenda(req, resp, usuarioId);
+
         } else {
             resp.sendRedirect("index.jsp");
         }

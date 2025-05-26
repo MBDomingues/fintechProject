@@ -80,6 +80,7 @@ public class OracleRendaDao implements RendaDao {
             conexao = ConnectionManager.getConnectionManager();
             String sql = "delete from t_renda where cd_renda = ?";
             stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
             stmt.executeUpdate();
 
         } catch (SQLException e) {
