@@ -11,7 +11,7 @@
 <div class="d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
     <div class="card">
         <div class="card-body">
-            <form action="login" method="post">
+            <form action="usuario?acao=logar" method="post">
                 <c:if test="${not empty erroLogin}">
                     <div class="alert alert-danger">
                             ${erroLogin}

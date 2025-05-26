@@ -22,7 +22,10 @@
                     <a class="nav-link" href="rendas?acao=listar">Renda</a>
                 </li>
             <!-- Botão de usuário à direita -->
-            <a href="./editUser.jsp" class="btn btn-outline-secondary position-absolute end-0 me-3">
+                <c:url value="usuario" var="link">
+                    <c:param name="acao" value="editar"/>
+                </c:url>
+            <a href="${link}" class="btn btn-outline-secondary position-absolute end-0 me-3">
                 <i class="bi bi-person-circle"></i> <!-- Ícone Bootstrap -->
             </a>
         </div>

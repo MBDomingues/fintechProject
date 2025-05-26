@@ -100,16 +100,25 @@ public class OracleUsuarioDao implements UsuarioDao {
     public void alterarUsuario(Usuario usuario) throws DBExeption {
 
         PreparedStatement stmt = null;
+        PreparedStatement stmtEmail = null;
 
         try {
             conexao = ConnectionManager.getConnectionManager();
 
-            String sql = "update t_usuario set nom_usuario=?, senha=? where nom_usuario=?";
+            String sql = "update t_usuario set nom_usuario=?, senha=? where cd_usuario=?";
 
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, usuario.getName());
             stmt.setString(2, usuario.getPassword());
+            stmt.setInt(3, usuario.getCd_user());
             stmt.executeUpdate();
+
+            String sqlEmail = "update t_email set nom_email = ?, tipo_email=? where cd_usuario=?";
+            stmtEmail = conexao.prepareStatement(sqlEmail);
+            stmtEmail.setString(1, usuario.getNom_email());
+            stmtEmail.setString(2, usuario.getTipo_email());
+            stmtEmail.setInt(3, usuario.getCd_user());
+            stmtEmail.executeUpdate();
 
         }catch (SQLException e) {
             e.printStackTrace();

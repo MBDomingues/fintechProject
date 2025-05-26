@@ -17,7 +17,12 @@
 <div class="d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
   <div class="card">
     <div class="card-body">
-      <form action="cadastro" method="post">
+      <form action="usuario?acao=cadastrar" method="post">
+        <c:if test="${not empty erroCadastro}">
+          <div class="alert alert-danger">
+              ${erroCadastro}
+          </div>
+        </c:if>
         <div class="mb-3">
           <label for="username" class="form-label">Name</label>
           <input type="text" name="nome" class="form-control" id="username">
