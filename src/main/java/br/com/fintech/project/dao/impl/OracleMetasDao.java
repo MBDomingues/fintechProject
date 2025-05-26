@@ -80,7 +80,7 @@ public class OracleMetasDao implements MetasDao {
     }
 
     @Override
-    public void excluirMeta(Metas metas) throws DBExeption {
+    public void excluirMeta(int id) throws DBExeption {
 
         PreparedStatement stmt = null;
 
@@ -88,7 +88,7 @@ public class OracleMetasDao implements MetasDao {
             conexao = ConnectionManager.getConnectionManager();
             String sql = "DELETE FROM T_METAS WHERE CD_META = ?";
             stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, metas.getCd_meta());
+            stmt.setInt(1, id);
             stmt.executeUpdate();
 
         } catch (SQLException e) {

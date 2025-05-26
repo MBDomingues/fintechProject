@@ -87,11 +87,34 @@ public class GastosServlet extends HttpServlet {
                 case "editar":
                     editar(req, resp, usuarioId);
                     break;
+                case "excluir":
+                    excluir(req, resp);
+                    break;
             }
 
 
         } else {
-            resp.sendRedirect("cadastrarGastos.jsp");
+            resp.sendRedirect("index.jsp");
+        }
+    }
+
+    private void excluir(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int codigo = Integer.parseInt(req.getParameter("codigoExcluir"));
+        HttpSession session = req.getSession(false);
+        if (session != null && session.getAttribute("usuarioId") != null) {
+            int usuarioId = (int) session.getAttribute("usuarioId");
+
+            try {
+                dao.excluirGastos(codigo);
+                req.setAttribute("msg", "Gasto removido!");
+            } catch (DBExeption e) {
+                e.printStackTrace();
+                req.setAttribute("erro", "Erro ao remover gasto.");
+            }
+            listar(req, resp, usuarioId);
+
+        } else {
+            resp.sendRedirect("index.jsp");
         }
     }
 

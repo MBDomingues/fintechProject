@@ -3,7 +3,6 @@ package br.com.fintech.project.controller;
 import br.com.fintech.project.dao.MetasDao;
 import br.com.fintech.project.exeption.DBExeption;
 import br.com.fintech.project.factory.DaoFactory;
-import br.com.fintech.project.model.Gastos;
 import br.com.fintech.project.model.Metas;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -40,7 +39,31 @@ public class MetasServlet extends HttpServlet {
                     break;
                 case "editar":
                     editar(req, resp, usuarioId);
+                    break;
+                case "excluir":
+                    excluir(req, resp);
+                    break;
             }
+
+        } else {
+            resp.sendRedirect("index.jsp");
+        }
+    }
+
+    private void excluir(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int codigo = Integer.parseInt(req.getParameter("codigoExcluir"));
+        HttpSession session = req.getSession(false);
+        if (session != null && session.getAttribute("usuarioId") != null) {
+            int usuarioId = (int) session.getAttribute("usuarioId");
+
+            try {
+                dao.excluirMeta(codigo);
+                req.setAttribute("msg", "Meta removida!");
+            } catch (DBExeption e) {
+                e.printStackTrace();
+                req.setAttribute("erro", "Erro ao remover meta.");
+            }
+            listarMetas(req,resp,usuarioId);
 
         } else {
             resp.sendRedirect("index.jsp");
@@ -97,10 +120,11 @@ public class MetasServlet extends HttpServlet {
 
             switch (acao) {
                 case "listar":
-                    listar(req, resp, usuarioId);
+                    listarMetas(req, resp, usuarioId);
                     break;
                 case "abrir-form-edicao":
                     abrirForm(req, resp);
+                    break;
             }
 
 
@@ -123,7 +147,7 @@ public class MetasServlet extends HttpServlet {
         }
     }
 
-    private void listar(HttpServletRequest req, HttpServletResponse resp, int usuarioId) throws ServletException, IOException {
+    private void listarMetas(HttpServletRequest req, HttpServletResponse resp, int usuarioId) throws ServletException, IOException {
         try {
             List<Metas> listaMetas = dao.listarMetas(usuarioId);
             req.setAttribute("metas", listaMetas);
