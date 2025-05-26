@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<h1 class="d-flex justify-content-center text-primary pt-5">
+    RENDA+
+</h1>
+
 <div class="d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
     <div class="card">
         <div class="card-body">

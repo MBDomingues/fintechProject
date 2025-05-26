@@ -11,6 +11,11 @@
 <%@include file="header.jsp"%>
 
 <!-- Conteúdo principal -->
+<div class="d-flex justify-content-center align-items-center flex-column p-5 w-100">
+    <h1>Olá!</h1>
+    <p>Bem vindo a sua central financeira.</p>
+</div>
+
 <div class="container bg-white p-4 rounded-4 shadow-lg mt-5">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <!-- Gastos -->
